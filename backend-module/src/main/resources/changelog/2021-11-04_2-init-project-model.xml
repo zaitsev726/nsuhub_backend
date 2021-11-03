@@ -1,0 +1,92 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <changeSet id="init project model" author="a.zaitsev">
+
+        <createTable tableName="project">
+            <column name="id" type="varchar(36)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="title" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="varchar(36)">
+                <constraints nullable="false" foreignKeyName="fk__users__id" referencedTableName="users"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="description" type="text"/>
+            <column name="current_participants_count" type="smallint" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="max_participants_count" type="smallint" defaultValue="20">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="started_at" type="timestamp"/>
+            <column name="closed_at" type="timestamp"/>
+        </createTable>
+
+        <createTable tableName="participant_role">
+            <column name="id" type="varchar(36)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="count" type="smallint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="project_id" type="varchar(36)">
+                <constraints nullable="false" foreignKeyName="fk__project__id" referencedTableName="project"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="experience" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="text"/>
+        </createTable>
+
+        <createTable tableName="participant">
+            <column name="id" type="varchar(36)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="user_id" type="varchar(36)">
+                <constraints nullable="false" foreignKeyName="fk__users__id" referencedTableName="users"
+                referencedColumnNames="id"/>
+            </column>
+            <column name="project_id" type="varchar(36)">
+                <constraints nullable="false" foreignKeyName="fk__project__id" referencedTableName="project"
+                             referencedColumnNames="id"/>
+            </column>
+
+            <column name="participant_role_id" type="varchar(36)">
+                <constraints nullable="false" foreignKeyName="fk__participant_role__id" referencedTableName="participant_role"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="accepted_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="project" indexName="idx__project__created_by">
+            <column name="created_by"/>
+        </createIndex>
+
+        <createIndex tableName="participant_role" indexName="idx__participant_role__project_id">
+            <column name="project_id"/>
+        </createIndex>
+
+        <createIndex tableName="participant" indexName="idx__participant__user_id">
+            <column name="user_id"/>
+        </createIndex>
+        <createIndex tableName="participant" indexName="idx__participant__project_id">
+            <column name="project_id"/>
+        </createIndex>
+        <createIndex tableName="participant" indexName="idx__participant__participant_role_id">
+            <column name="participant_role_id"/>
+        </createIndex>
+
+    </changeSet>
+
+</databaseChangeLog>

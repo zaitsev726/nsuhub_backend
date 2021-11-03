@@ -1,0 +1,59 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <changeSet id="init user model" author="a.zaitsev">
+        <createTable tableName="student_info">
+            <column name="id" type="varchar(36)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="faculty" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="direction" type="varchar(100)"/>
+            <column name="course" type="smallint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="group" type="varchar(20)"/>
+        </createTable>
+
+        <createTable tableName="users">
+            <column name="id" type="varchar(36)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="text">
+                <constraints nullable="true" unique="true"/>
+            </column>
+            <column name="login" type="text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="text"/>
+            <column name="phone_number" type="text">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="is_student" type="boolean"/>
+            <column name="bio" type="text"/>
+            <column name="created_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="student_info_id" type="varchar(36)">
+                <constraints nullable="true" foreignKeyName="fk__student_info__id" referencedTableName="student_info"
+                             referencedColumnNames="id"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="users" indexName="idx__users__login">
+            <column name="login"/>
+        </createIndex>
+
+        <createIndex tableName="student_info" indexName="idx__student_info__faculty">
+            <column name="faculty"/>
+        </createIndex>
+
+    </changeSet>
+
+</databaseChangeLog>
