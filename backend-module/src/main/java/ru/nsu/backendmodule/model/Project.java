@@ -109,6 +109,22 @@ public class Project extends BaseModel<String> {
         }
     }
 
+    public Integer getMaxParticipantsCount() {
+        return maxParticipantsCount;
+    }
+
+    public void setMaxParticipantsCount(Integer maxParticipantsCount) {
+        this.maxParticipantsCount = maxParticipantsCount;
+    }
+
+    public Integer getCurrentParticipantsCount() {
+        return currentParticipantsCount;
+    }
+
+    public void setCurrentParticipantsCount(Integer currentParticipantsCount) {
+        this.currentParticipantsCount = currentParticipantsCount;
+    }
+
     public boolean isProjectOwner(String userId) {
         //Important - we MUST call methods here and NOT use fields
         //Otherwise this method crashes if called before all other

@@ -37,10 +37,6 @@ public class Participant {
         this.acceptedAt = Instant.now();
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public User getUser() {
         return user;
     }

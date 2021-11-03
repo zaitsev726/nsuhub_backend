@@ -1,13 +1,15 @@
 package ru.nsu.backendmodule.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "student_info")
-public class StudentInfo extends BaseModel<String> {
+public class StudentInfo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    protected Long id;
 
     @Column(name = "faculty")
     private String faculty;
