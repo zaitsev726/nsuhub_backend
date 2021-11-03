@@ -1,13 +1,13 @@
-package com.example.backendmodule;
+package ru.nsu.chatmodule;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BackendModuleApplication {
+public class ChatModuleApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BackendModuleApplication.class, args);
+        SpringApplication.run(ChatModuleApplication.class, args);
     }
 
 }
