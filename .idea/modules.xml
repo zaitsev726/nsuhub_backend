@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/backend-module/backend-module.iml" filepath="$PROJECT_DIR$/backend-module/backend-module.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chat-module/chat-module.iml" filepath="$PROJECT_DIR$/chat-module/chat-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/nsuhub_backend.iml" filepath="$PROJECT_DIR$/.idea/nsuhub_backend.iml" />
     </modules>
   </component>
