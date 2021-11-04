@@ -6,6 +6,7 @@
         <option value="$PROJECT_DIR$/app-module/pom.xml" />
         <option value="$PROJECT_DIR$/backend-module/pom.xml" />
         <option value="$PROJECT_DIR$/chat-module/pom.xml" />
+        <option value="$PROJECT_DIR$/backend-shared/pom.xml" />
       </list>
     </option>
   </component>
