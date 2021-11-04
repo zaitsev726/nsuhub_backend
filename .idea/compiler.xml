@@ -8,16 +8,19 @@
         <outputRelativeToContentRoot value="true" />
         <module name="backend-module" />
         <module name="chat-module" />
+        <module name="backend-shared" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="backend-module" target="16" />
-      <module name="chat-module" target="16" />
+      <module name="backend-module" target="17" />
+      <module name="backend-shared" target="17" />
+      <module name="chat-module" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="backend-module" options="-parameters" />
+      <module name="backend-shared" options="-parameters" />
       <module name="chat-module" options="-parameters" />
     </option>
   </component>
