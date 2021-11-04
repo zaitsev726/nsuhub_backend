@@ -64,6 +64,11 @@ public class User extends BaseModel<String> {
        this(id, name, email, login, password, phone, false, null, null);
     }
 
+    public User(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
@@ -130,5 +135,13 @@ public class User extends BaseModel<String> {
 
     public void setStudentInfo(StudentInfo studentInfo) {
         this.studentInfo = studentInfo;
+    }
+
+    public boolean isRegistered() {
+        return password != null;
+    }
+
+    public boolean isVerified() {
+        return phoneNumber != null || email != null;
     }
 }
