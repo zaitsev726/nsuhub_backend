@@ -5,16 +5,15 @@ import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
-import ru.nsu.backendshared.model.UserAuthenticationToken;
 import ru.nsu.backendshared.model.UserUuidAuthenticationToken;
 
 import java.text.ParseException;
 import java.util.Date;
 
 public class JwtTokenUtil {
-
     //256 - bit (32 byte) shared secret
     private final String jwtSecret = "bezKDVOJiI2m49whDqIJnhK8ai6073Q5";
+    private final String tokenName = "accessJWT";
     private final Integer accessTokenDuration = 120 * 1000;
     private final Integer refreshTokenDuration = 30 * 60 * 1000;
     private final JWSSigner signer;
@@ -49,5 +48,9 @@ public class JwtTokenUtil {
     public UserUuidAuthenticationToken parseToken(String token) throws Exception {
         var signedJwt = SignedJWT.parse(token);
         return new UserUuidAuthenticationToken(signedJwt.getJWTClaimsSet().getSubject());
+    }
+
+    public String getTokenName() {
+        return this.tokenName;
     }
 }

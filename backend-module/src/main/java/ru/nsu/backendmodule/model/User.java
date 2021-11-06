@@ -13,9 +13,6 @@ public class User extends BaseModel<String> {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "login")
-    private String login;
-
     @Column(name = "password")
     private String password;
 
@@ -38,14 +35,13 @@ public class User extends BaseModel<String> {
     public User() {
     }
 
-    public User(String id, String name, String email, String login, String password,
+    public User(String id, String name, String email, String password,
                 String phoneNumber, Boolean isStudent, String bio, StudentInfo studentInfo) {
         this.id = id;
         this.name = name;
         if (email != null) {
             this.email = email;
         }
-        this.login = login;
         this.password = password;
         if (email != null) {
             this.phoneNumber = phoneNumber;
@@ -60,8 +56,8 @@ public class User extends BaseModel<String> {
         this.createdAt = Instant.now();
     }
 
-    public User(String id, String name, String email, String login, String password, String phone) {
-       this(id, name, email, login, password, phone, false, null, null);
+    public User(String id, String name, String email, String password, String phone) {
+        this(id, name, email, password, phone, false, null, null);
     }
 
     public User(String id, String name) {
@@ -83,14 +79,6 @@ public class User extends BaseModel<String> {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public String getPassword() {

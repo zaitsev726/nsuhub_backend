@@ -28,9 +28,6 @@
             <column name="email" type="text">
                 <constraints nullable="true" unique="true"/>
             </column>
-            <column name="login" type="text">
-                <constraints nullable="true" unique="true"/>
-            </column>
             <column name="password" type="text">
                 <constraints nullable="true"/>
             </column>
@@ -47,10 +44,6 @@
                              referencedColumnNames="id"/>
             </column>
         </createTable>
-
-        <createIndex tableName="users" indexName="idx__users__login">
-            <column name="login"/>
-        </createIndex>
 
         <createIndex tableName="student_info" indexName="idx__student_info__faculty">
             <column name="faculty"/>

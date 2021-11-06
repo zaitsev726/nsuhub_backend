@@ -9,7 +9,6 @@
             <column name="id" value="8c352f19-584f-4a6f-aa4b-a7e5d34a5bdf"/>
             <column name="name" value="John Wick"/>
             <column name="email" value="john.wick@dog.com"/>
-            <column name="login" value="john.wick"/>
             <!--gfhjkm/-->
             <column name="password" value="$2y$12$WIhZRESjmBs8x7lNFwe8tuoTWyb7hhKpO3VxGd13T8W5r6RhOurmW"/>
             <column name="phone_number" value="88005553535"/>

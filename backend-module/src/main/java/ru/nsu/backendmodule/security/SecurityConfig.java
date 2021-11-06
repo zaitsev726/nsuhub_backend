@@ -9,23 +9,32 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import ru.nsu.backendmodule.repository.UserRepository;
+import ru.nsu.backendmodule.service.mapper.UserMapper;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
+    private final JwtTokenFilter jwtTokenFilter;
 
-    public SecurityConfig(UserRepository userRepository) {
+    public SecurityConfig(UserRepository userRepository,
+                          UserMapper userMapper,
+                          JwtTokenFilter jwtTokenFilter) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
+        this.jwtTokenFilter = jwtTokenFilter;
     }
 
     @Bean
-    public UserAuthService userAuthService(){
-        return new UserAuthService(bCryptPasswordEncoder(), userRepository);
+    public UserAuthService userAuthService() {
+        return new UserAuthService(bCryptPasswordEncoder(), userRepository, userMapper);
     }
 
     @Override
@@ -39,14 +48,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(new UsernamePasswordAuthProvider(userAuthService()));
         auth.authenticationProvider(new UserUuidAuthProvider(userAuthService()));
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.sessionManagement().disable();
+        http
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http
                 .csrf().disable()
@@ -60,6 +71,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
 
+        http
+                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

@@ -6,7 +6,6 @@ import org.springframework.security.core.AuthenticationException;
 import ru.nsu.backendshared.model.UserUuidAuthenticationToken;
 
 class UserUuidAuthProvider implements AuthenticationProvider {
-
     private final UserAuthService userAuthService;
 
     public UserUuidAuthProvider(UserAuthService userAuthService) {

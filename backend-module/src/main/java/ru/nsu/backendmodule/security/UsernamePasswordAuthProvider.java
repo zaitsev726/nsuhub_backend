@@ -4,7 +4,6 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import ru.nsu.backendshared.model.UserAuthenticationToken;
 
 class UsernamePasswordAuthProvider implements AuthenticationProvider {
     private final UserAuthService userAuthService;
