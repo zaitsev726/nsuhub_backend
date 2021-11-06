@@ -1,4 +1,4 @@
-package ru.nsu.backendmodule.dto;
+package ru.nsu.backendmodule.dto.user;
 
 public record CurrentUserDto(String id,
                              String name,

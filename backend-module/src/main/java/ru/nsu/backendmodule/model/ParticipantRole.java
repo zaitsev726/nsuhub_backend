@@ -32,7 +32,7 @@ public class ParticipantRole{
     public ParticipantRole() {
     }
 
-    public ParticipantRole(Integer count, String experience, Project project, Integer max) {
+    public ParticipantRole(Integer count, String experience, Project project) {
         this.count = count;
         this.experience = experience;
         this.project = project;

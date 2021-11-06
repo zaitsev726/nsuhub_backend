@@ -4,7 +4,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
-import ru.nsu.backendmodule.dto.CurrentUserDto;
+import ru.nsu.backendmodule.dto.user.CurrentUserDto;
 import ru.nsu.backendmodule.model.User;
 import ru.nsu.backendmodule.repository.UserRepository;
 import ru.nsu.backendmodule.service.mapper.UserMapper;

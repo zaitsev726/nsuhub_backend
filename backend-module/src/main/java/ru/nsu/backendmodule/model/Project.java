@@ -2,7 +2,9 @@ package ru.nsu.backendmodule.model;
 
 import javax.persistence.*;
 import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "project")
@@ -10,14 +12,14 @@ public class Project extends BaseModel<String> {
     @Column(name = "title")
     private String title;
 
+    @Column(name = "pre_description")
+    private String preDescription;
+
     @Column(name = "description")
     private String description;
 
     @Column(name = "max_participants_count")
     private Integer maxParticipantsCount;
-
-    @Column(name = "current_participants_count")
-    private Integer currentParticipantsCount;
 
     @ManyToOne
     @JoinColumn(name = "created_by", referencedColumnName = "id")
@@ -38,21 +40,23 @@ public class Project extends BaseModel<String> {
     public Project() {
     }
 
-    public Project(String title, String description, User createdBy, Integer max) {
+    public Project(String title, String preDescription, String description, User createdBy, Integer max) {
         this.title = title;
+        if (preDescription != null) {
+            this.preDescription = preDescription;
+        }
         if (description != null) {
             this.description = description;
         }
         this.createdBy = createdBy;
         this.createdAt = Instant.now();
-        this.currentParticipantsCount = 0;
         if (max != null) {
             this.maxParticipantsCount = max;
         }
     }
 
     public Project(String title, User createdBy, Integer max) {
-        this(title, null, createdBy, max);
+        this(title, null, null, createdBy, max);
     }
 
     public String getTitle() {
@@ -117,12 +121,12 @@ public class Project extends BaseModel<String> {
         this.maxParticipantsCount = maxParticipantsCount;
     }
 
-    public Integer getCurrentParticipantsCount() {
-        return currentParticipantsCount;
+    public String getPreDescription() {
+        return preDescription;
     }
 
-    public void setCurrentParticipantsCount(Integer currentParticipantsCount) {
-        this.currentParticipantsCount = currentParticipantsCount;
+    public void setPreDescription(String preDescription) {
+        this.preDescription = preDescription;
     }
 
     public boolean isProjectOwner(String userId) {

@@ -6,7 +6,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import ru.nsu.backendmodule.dto.CurrentUserDto;
+import ru.nsu.backendmodule.dto.user.CurrentUserDto;
 import ru.nsu.backendmodule.security.UserAuthService;
 import ru.nsu.backendshared.model.UserUuidAuthenticationToken;
 

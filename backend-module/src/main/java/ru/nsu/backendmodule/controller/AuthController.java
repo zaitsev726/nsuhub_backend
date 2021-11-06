@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.nsu.backendmodule.dto.CurrentUserDto;
-import ru.nsu.backendmodule.dto.UsernamePasswordDto;
-import ru.nsu.backendmodule.dto.UuidDto;
+import ru.nsu.backendmodule.dto.user.CurrentUserDto;
+import ru.nsu.backendmodule.dto.user.UsernamePasswordDto;
+import ru.nsu.backendmodule.dto.user.UuidDto;
 import ru.nsu.backendmodule.service.UserAuthenticator;
 import ru.nsu.backendshared.security.JwtTokenUtil;
 
