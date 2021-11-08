@@ -6,17 +6,17 @@ import ru.nsu.backendmodule.dto.UserVerificationDto;
 import ru.nsu.backendmodule.dto.UserVerificationRequestDto;
 import ru.nsu.backendmodule.dto.user.CurrentUserDto;
 import ru.nsu.backendmodule.dto.user.StudentInfoDto;
+import ru.nsu.backendmodule.manager.UserManager;
 import ru.nsu.backendmodule.service.UserService;
 import ru.nsu.backendshared.model.UserAuthorities;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    private final UserService userService;
+    private final UserManager userManager;
 
-    public UserController(UserService userService) {
-
-        this.userService = userService;
+    public UserController(UserManager userManager) {
+        this.userManager = userManager;
     }
 
     @PostMapping("/verify/phone/request")
@@ -26,9 +26,8 @@ public class UserController {
     }
 
     @PostMapping("/verify/email/request")
-    //TODO
     public void requestEmailVerification(@RequestBody UserVerificationRequestDto userVerificationRequestDto) {
-
+        userManager.requestEmailVerification(userVerificationRequestDto);
     }
 
     @PostMapping("/verify")
@@ -46,11 +45,11 @@ public class UserController {
 
     @PostMapping("/{userId}/username")
     public CurrentUserDto updateUsername(@PathVariable String userId, @RequestParam String username) {
-        return userService.updateUsername(userId, username);
+        return userManager.updateUsername(userId, username);
     }
 
     @PostMapping("/{userId}/bio")
     public CurrentUserDto updateStudentBio(@PathVariable String userId, @RequestBody StudentInfoDto studentInfoDto) {
-        return userService.updateStudentBio(userId, studentInfoDto);
+        return userManager.updateStudentBio(userId, studentInfoDto);
     }
 }

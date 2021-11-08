@@ -17,3 +17,15 @@ spring:
     enabled: true
     default-schema: public
     change-log: classpath:changelog.xml
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: softtestmail026@gmail.com
+    password: softtestmail026123
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+email:
+  from: nsu.hub@information.com

@@ -37,6 +37,12 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         var cookies = request.getCookies();
+
+        if (cookies == null || cookies.length == 0) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         var tokenCookie = Arrays
                 .stream(cookies)
                 .filter(cookie -> cookie.getName().equals(jwtTokenUtil.getTokenName()))
