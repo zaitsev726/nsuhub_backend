@@ -31,7 +31,7 @@ public class ProjectController {
                 newProjectDto.maxParticipantCount());
     }
 
-    @PostMapping("/{projectId}")
+    @PostMapping("/{projectId}/role")
     @Secured({UserAuthorities.VERIFIED})
     public void createParticipantRole(
             @RequestBody NewParticipantRoleDto newParticipantRoleDto,
@@ -56,9 +56,8 @@ public class ProjectController {
     }
 
     @GetMapping("/{projectId}")
-    //TODO
     public ProjectDetailedDto getProjectDetailedInfo(@PathVariable String projectId) {
-        return null;
+        return projectService.getProjectDetailedInfo(projectId);
     }
 
     @PostMapping("/accept/{participantId}/{projectId}/{roleId}")
@@ -69,4 +68,5 @@ public class ProjectController {
             @PathVariable Long roleId) {
         projectService.acceptParticipantToRole(participantId, projectId, roleId);
     }
+
 }

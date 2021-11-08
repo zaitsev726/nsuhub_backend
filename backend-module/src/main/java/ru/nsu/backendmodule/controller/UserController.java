@@ -5,14 +5,18 @@ import org.springframework.web.bind.annotation.*;
 import ru.nsu.backendmodule.dto.UserVerificationDto;
 import ru.nsu.backendmodule.dto.UserVerificationRequestDto;
 import ru.nsu.backendmodule.dto.user.CurrentUserDto;
+import ru.nsu.backendmodule.dto.user.StudentInfoDto;
+import ru.nsu.backendmodule.service.UserService;
 import ru.nsu.backendshared.model.UserAuthorities;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
+    private final UserService userService;
 
-    public UserController() {
+    public UserController(UserService userService) {
 
+        this.userService = userService;
     }
 
     @PostMapping("/verify/phone/request")
@@ -41,10 +45,12 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/username")
-    //TODO
-    public CurrentUserDto updateUsername(
-            @PathVariable String userId,
-            @RequestParam String username) {
-        return null;
+    public CurrentUserDto updateUsername(@PathVariable String userId, @RequestParam String username) {
+        return userService.updateUsername(userId, username);
+    }
+
+    @PostMapping("/{userId}/bio")
+    public CurrentUserDto updateStudentBio(@PathVariable String userId, @RequestBody StudentInfoDto studentInfoDto) {
+        return userService.updateStudentBio(userId, studentInfoDto);
     }
 }

@@ -7,6 +7,14 @@ import ru.nsu.backendmodule.model.User;
 @Component
 public class UserMapper {
     public CurrentUserDto mapToCurrentUser(User user, boolean authenticated) {
-        return new CurrentUserDto(user.getId(), user.getName(), user.getEmail(), user.getPhoneNumber(), authenticated, user.isRegistered(), user.isVerified());
+        return new CurrentUserDto(
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getPhoneNumber(),
+                user.getStudentInfo() != null,
+                authenticated,
+                user.isRegistered(),
+                user.isVerified());
     }
 }
