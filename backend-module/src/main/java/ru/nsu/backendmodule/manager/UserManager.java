@@ -1,9 +1,11 @@
 package ru.nsu.backendmodule.manager;
 
 import org.springframework.stereotype.Component;
+import ru.nsu.backendmodule.dto.UserVerificationDto;
 import ru.nsu.backendmodule.dto.UserVerificationRequestDto;
 import ru.nsu.backendmodule.dto.user.CurrentUserDto;
 import ru.nsu.backendmodule.dto.user.StudentInfoDto;
+import ru.nsu.backendmodule.dto.user.EmailPasswordDto;
 import ru.nsu.backendmodule.email.EmailService;
 import ru.nsu.backendmodule.security.SecurityContextHelper;
 import ru.nsu.backendmodule.service.UserService;
@@ -28,21 +30,15 @@ public class UserManager {
     }
 
     public CurrentUserDto updateUsername(String userId, String username) {
-        var currentUserId = SecurityContextHelper.getCurrentUserId();
+        checkPermissions(userId);
 
-        if (!Objects.equals(userId, currentUserId)) {
-            throw new IllegalArgumentException("Not enough permissions to update username");
-        }
         userService.updateUsername(userId, username);
         return userService.getUser(userId);
     }
 
     public CurrentUserDto updateStudentBio(String userId, StudentInfoDto studentInfoDto) {
-        var currentUserId = SecurityContextHelper.getCurrentUserId();
+        checkPermissions(userId);
 
-        if (!Objects.equals(userId, currentUserId)) {
-            throw new IllegalArgumentException("Not enough permissions to update username");
-        }
         userService.updateStudentBio(userId, studentInfoDto);
         return userService.getUser(userId);
     }
@@ -60,6 +56,36 @@ public class UserManager {
         var generatedCode = 1000 + random.nextInt(8999);
         emailCodes.add(new EmailCodes(userId, email, String.valueOf(generatedCode)));
         emailService.sendSimpleMessage(email, "Код подтверждения", "Код подтверждения - " + generatedCode);
+    }
+
+    public void updatePassword(String userId, EmailPasswordDto emailPasswordDto) {
+        checkPermissions(userId);
+
+        userService.updatePassword(emailPasswordDto);
+    }
+
+    public CurrentUserDto verifyUser(UserVerificationDto userVerificationDto) {
+        var userId = SecurityContextHelper.getCurrentUserId();
+        if (userVerificationDto.isEmail()) {
+            var emailCode = emailCodes
+                    .stream()
+                    .filter(verifyCode -> Objects.equals(verifyCode.userId, userId))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException("You have not verification codes"));
+
+            if (Objects.equals(emailCode.code, userVerificationDto.code())) {
+                userService.updateEmail(userId, userVerificationDto.credentialToVerify());
+            }
+        }
+        return userService.getUser(userId);
+    }
+
+    private void checkPermissions(String userId) {
+        var currentUserId = SecurityContextHelper.getCurrentUserId();
+
+        if (!Objects.equals(userId, currentUserId)) {
+            throw new IllegalArgumentException("Not enough permissions to update " + userId);
+        }
     }
 
     private record EmailCodes(String userId, String email, String code) {

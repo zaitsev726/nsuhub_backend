@@ -6,8 +6,8 @@ import ru.nsu.backendmodule.dto.UserVerificationDto;
 import ru.nsu.backendmodule.dto.UserVerificationRequestDto;
 import ru.nsu.backendmodule.dto.user.CurrentUserDto;
 import ru.nsu.backendmodule.dto.user.StudentInfoDto;
+import ru.nsu.backendmodule.dto.user.EmailPasswordDto;
 import ru.nsu.backendmodule.manager.UserManager;
-import ru.nsu.backendmodule.service.UserService;
 import ru.nsu.backendshared.model.UserAuthorities;
 
 @RestController
@@ -31,16 +31,14 @@ public class UserController {
     }
 
     @PostMapping("/verify")
-    //TODO
     public CurrentUserDto verifyUser(@RequestBody UserVerificationDto userVerificationDto) {
-        return null;
+        return userManager.verifyUser(userVerificationDto);
     }
 
     @PostMapping("/{userId}/password")
     @Secured({UserAuthorities.REGISTERED})
-    //TODO create method (add UsernamePasswordDto)
-    public void updatePassword(@PathVariable String userId) {
-
+    public void updatePassword(@PathVariable String userId, @RequestBody EmailPasswordDto emailPasswordDto) {
+        userManager.updatePassword(userId, emailPasswordDto);
     }
 
     @PostMapping("/{userId}/username")

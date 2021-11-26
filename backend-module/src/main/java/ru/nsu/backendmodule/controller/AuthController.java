@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.nsu.backendmodule.dto.user.CurrentUserDto;
-import ru.nsu.backendmodule.dto.user.UsernamePasswordDto;
+import ru.nsu.backendmodule.dto.user.EmailPasswordDto;
 import ru.nsu.backendmodule.dto.user.UuidDto;
 import ru.nsu.backendmodule.service.UserAuthenticator;
 import ru.nsu.backendshared.security.JwtTokenUtil;
@@ -28,9 +28,9 @@ public class AuthController {
 
     @PostMapping("/form")
     public CurrentUserDto authenticateByForm(
-            @RequestBody UsernamePasswordDto usernamePasswordDto,
+            @RequestBody EmailPasswordDto emailPasswordDto,
             HttpServletResponse httpServletResponse) throws JOSEException {
-        var dto = userAuthenticator.authenticateByForm(usernamePasswordDto.username(), usernamePasswordDto.password());
+        var dto = userAuthenticator.authenticateByForm(emailPasswordDto.email(), emailPasswordDto.password());
         addCurrentUserAccessJwtToken(dto.id(), httpServletResponse);
         return dto;
     }
